@@ -18,10 +18,12 @@ sphinx_env:
 sphinx-build: sphinx_env
 	sphinx_env/bin/pip install sphinx==1.3.3
 
-python.texi: python_src sphinx-build
+python_info/python.texi: python_src sphinx-build
 	sphinx_env/bin/sphinx-build -b texinfo python_src/Doc python_info
-	sed -i 's/@dircategory Documentation tools/@dircategory Programming/g' python_info/python.texi
-	cp python_info/python.texi python.texi
+
+python.texi: python_info/python.texi Makefile
+	sed -e 's/@dircategory Documentation tools/@dircategory Programming/g' \
+		python_info/python.texi > $@
 
 python.info: python.texi
 	makeinfo --no-split python.texi
