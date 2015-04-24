@@ -1,4 +1,4 @@
-PYTHON_VERSION = '2.7.10'
+PYTHON_VERSION = 2.7.10
 VIRTUALENV_BIN = $(shell python -c "import sys;print('virtualenv'+('' if sys.version_info.major==2 else '2'))")
  
 default: python.info
