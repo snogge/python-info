@@ -1,4 +1,4 @@
 build/python_info/*
 build/Python-*
-build/sphinx_env/*
+build/sphinx_env_*/
 build/Python-*.tgz
