@@ -3,11 +3,11 @@ VIRTUALENV_BIN = $(shell python -c "import sys;print('virtualenv'+('' if sys.ver
  
 default: python.info
 
-python.tgz:
-	wget -O python.tgz http://www.python.org/ftp/python/$(PYTHON_VERSION)/Python-$(PYTHON_VERSION).tgz
+Python-$(PYTHON_VERSION).tgz:
+	wget -O $@ http://www.python.org/ftp/python/$(PYTHON_VERSION)/Python-$(PYTHON_VERSION).tgz
 
-python_src: python.tgz
-	tar -xzf python.tgz
+python_src: Python-$(PYTHON_VERSION).tgz
+	tar -xzf $<
 	mv Python-$(PYTHON_VERSION) python_src
 	# based on http://stackoverflow.com/a/3952588
 	echo "texinfo_documents = [('contents', 'python', 'Python Documentation', 'Georg Brandl', 'Python', 'The Python Programming Language', 'Documentation tools', 1)]" >> python_src/Doc/conf.py
@@ -29,7 +29,7 @@ python.info: python.texi
 	makeinfo --no-split python.texi
 
 clean:
-	rm -f python.tgz
+	rm -f Python-*.tgz
 	rm -rf python_src
 	rm -rf python_info
 	rm -rf sphinx_env
