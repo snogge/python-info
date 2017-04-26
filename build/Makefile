@@ -31,8 +31,10 @@ clean:
 	rm -f Python-*.tgz
 	rm -rf Python-*
 	rm -rf python_info
-	rm -rf sphinx_env
 	rm -f python.texi
+
+realclean: clean
+	rm -rf sphinx_env
 
 install: python.info
 	cp python.info /usr/share/info
