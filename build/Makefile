@@ -5,6 +5,7 @@ SPHINX_FOR_2.7.8 = 1.1.3
 SPHINX_FOR_2.7.10 = 1.3.3
 SPHINX_VERSION = $(SPHINX_FOR_$(PYTHON_VERSION))
 sphinx_bin = sphinx_env_$(SPHINX_VERSION)/bin
+sphinx_build = $(sphinx_bin)/sphinx-build
 
 default: python.info
 
@@ -19,11 +20,11 @@ Python-$(PYTHON_VERSION): Python-$(PYTHON_VERSION).tgz
 sphinx_env_$(SPHINX_VERSION):
 	$(VIRTUALENV_BIN) $@
 
-sphinx-build: sphinx_env_$(SPHINX_VERSION)
+$(sphinx_build): sphinx_env_$(SPHINX_VERSION)
 	$(sphinx_bin)/pip install sphinx==$(SPHINX_VERSION)
 
-python_info/python.texi: Python-$(PYTHON_VERSION) sphinx-build
-	$(sphinx_bin)/sphinx-build -b texinfo Python-$(PYTHON_VERSION)/Doc python_info
+python_info/python.texi: Python-$(PYTHON_VERSION) $(sphinx_build)
+	$(sphinx_build) -b texinfo Python-$(PYTHON_VERSION)/Doc python_info
 
 python.texi: python_info/python.texi Makefile
 	sed -e 's/@dircategory Documentation tools/@dircategory Programming/g' \
